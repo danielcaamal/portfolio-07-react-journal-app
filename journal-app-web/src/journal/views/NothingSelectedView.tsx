@@ -15,6 +15,7 @@ export const NothingSelectedView = () => {
                 backgroundColor: 'primary.main', 
                 borderRadius: 5
             }}
+            className='animate__animated animate__fadeIn animate__faster'
             >
             <Grid 
                 item

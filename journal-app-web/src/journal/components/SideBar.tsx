@@ -1,7 +1,10 @@
 import { TurnedInNot } from '@mui/icons-material';
 import { Box, Divider, Drawer, Grid, List, ListItem, ListItemButton, ListItemIcon, ListItemText, Toolbar, Typography } from '@mui/material';
+import { useAppSelector } from '../../hooks';
 
 export const SideBar = ({ drawerWidth=240 } : { drawerWidth?: number }) => {
+
+    const { displayName } = useAppSelector(state => state.auth);
 
     return (
         <Box
@@ -30,7 +33,7 @@ export const SideBar = ({ drawerWidth=240 } : { drawerWidth?: number }) => {
             >
                 <Toolbar>
                     <Typography variant='h6' noWrap component='div'>
-                        Daniel Caamal
+                        { displayName }
                     </Typography>
                 </Toolbar>
                 <Divider/>
