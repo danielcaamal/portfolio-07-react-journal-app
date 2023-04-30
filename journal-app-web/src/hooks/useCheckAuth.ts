@@ -2,7 +2,7 @@ import { useEffect } from "react";
 import { useAppDispatch, useAppSelector } from "./useAppDispatch";
 import { onAuthStateChanged } from "firebase/auth";
 import { FirebaseAuth } from "../firebase/config";
-import { AuthStatus, login, logout } from "../store/auth";
+import { AuthStatus, login, logout } from "../store";
 
 
 export const useCheckAuth = () => {
@@ -33,7 +33,6 @@ export const useCheckAuth = () => {
 
     const checkStateApi = () => {
         const user = JSON.parse(localStorage.getItem('user') ?? '{}');
-        console.log(user);
         if (user.email) {
             dispatch(login({
                 status: AuthStatus.AUTHENTICATED,

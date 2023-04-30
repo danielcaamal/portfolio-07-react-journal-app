@@ -1,21 +1,9 @@
 import { createSlice } from '@reduxjs/toolkit';
-
-export enum AuthStatus {
-CHECKING = 'checking',
-    AUTHENTICATED = 'authenticated',
-    NOT_AUTHENTICATED = 'not-authenticated'
-}
+import { authInitialState, AuthStatus } from './authState';
 
 export const authSlice = createSlice({
     name: 'auth',
-    initialState: {
-        status: AuthStatus.NOT_AUTHENTICATED,
-        uid: null,
-        email: null,
-        displayName: null,
-        photoURL: null,
-        errorMessage: null
-    },
+    initialState: authInitialState,
     reducers: {
         login: (state, action) => {
             state.status = AuthStatus.AUTHENTICATED;

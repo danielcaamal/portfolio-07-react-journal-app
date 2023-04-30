@@ -24,7 +24,6 @@ export const apiRegisterProvider = async (iRegister: IRegisterRequest) : Promise
         return data;
     }
     catch (error: any ){
-        console.log(error);
         return {
             id: '',
             displayName: '',

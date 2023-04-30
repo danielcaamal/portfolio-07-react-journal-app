@@ -6,7 +6,7 @@ import { Alert, Button, Grid, Link, TextField, Typography } from '@mui/material'
 // Local Imports
 import { AuthLayout } from "../layouts";
 import { useAppDispatch, useAppSelector, useForm } from "../../hooks";
-import { AuthStatus, checkingAuthentication, startGoogleSignInPopUp, startFirebaseLogin, startApiLogin } from "../../store/auth";
+import { AuthStatus, checkingAuthentication, startGoogleSignInPopUp, startFirebaseLogin, startApiLogin } from "../../store";
 import { useMemo, useState } from 'react';
 
 const formValidations = {

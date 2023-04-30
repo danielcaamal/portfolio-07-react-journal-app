@@ -24,7 +24,6 @@ export const apiLoginProvider = async (login: ILoginRequest) : Promise<IUser> =>
         return data;
     }
     catch (error: any ){
-        console.log(error);
         return {
             id: '',
             displayName: '',

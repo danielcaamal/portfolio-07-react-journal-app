@@ -3,7 +3,7 @@ import { Link as RouterLink } from 'react-router-dom';
 import { AuthLayout } from "../layouts";
 import { useAppDispatch, useAppSelector, useForm } from "../../hooks";
 import { useState, useMemo } from 'react';
-import { AuthStatus, startApiRegister, startFirebaseRegister } from "../../store/auth";
+import { AuthStatus, startApiRegister, startFirebaseRegister } from "../../store";
 
 const formData = {
     email: '',
@@ -20,7 +20,6 @@ const formValidations = {
 export const RegisterPage = () => {
     const dispatch = useAppDispatch();
     const { status, errorMessage } = useAppSelector(state => state.auth);
-    console.log(status, errorMessage);
     const isCheckingAuthentication = useMemo(() => status === AuthStatus.CHECKING, [status]);
 
     const [formSubmitted, setFormSubmitted] = useState(false);

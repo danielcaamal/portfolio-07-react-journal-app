@@ -31,7 +31,6 @@ export const signInWithGoogle = async () : Promise<ICredentials> => {
         }
     } 
     catch (error:any) {
-        console.log(error);
         return {
             ...credentials,
             errorMessage: getErrorFirebase(error),

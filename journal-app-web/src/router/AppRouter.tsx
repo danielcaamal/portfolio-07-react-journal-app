@@ -1,7 +1,7 @@
 import { Navigate, Route, Routes } from 'react-router-dom';
 import { AuthRoutes } from '../auth';
 import { JournalRoutes } from '../journal';
-import { AuthStatus } from '../store/auth';
+import { AuthStatus } from '../store';
 import { CheckingAuth } from '../ui';
 import { useCheckAuth } from '../hooks';
 

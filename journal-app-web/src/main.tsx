@@ -7,7 +7,7 @@ import { BrowserRouter } from 'react-router-dom'
 // Local imports
 import './styles.css'
 import { JournalApp } from './JournalApp'
-import { store } from './store/store'
+import { store } from './store'
 
 
 ReactDOM.createRoot(document.getElementById('root') as HTMLElement).render(

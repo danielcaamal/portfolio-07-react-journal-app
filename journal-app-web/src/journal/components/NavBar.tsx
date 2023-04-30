@@ -1,7 +1,7 @@
 import { LogoutOutlined, MenuOutlined } from "@mui/icons-material"
 import { AppBar, Grid, IconButton, Toolbar, Typography } from "@mui/material"
 import { useAppDispatch } from "../../hooks";
-import { startApiLogout } from "../../store/auth";
+import { startApiLogout } from "../../store";
 
 export const NavBar = ({ drawerWidth=240 } : { drawerWidth?: number }) => {
 
