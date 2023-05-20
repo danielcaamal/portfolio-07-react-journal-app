@@ -6,6 +6,7 @@ export enum AuthStatus {
 
 export interface AuthState {
     status: AuthStatus;
+    id: string | null;
     uid: string | null;
     email: string | null;
     displayName: string | null;
@@ -16,6 +17,7 @@ export interface AuthState {
 export const authInitialState: AuthState = {
     status: AuthStatus.NOT_AUTHENTICATED,
     uid: null,
+    id: null,
     email: null,
     displayName: null,
     photoURL: null,

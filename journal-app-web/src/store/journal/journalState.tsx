@@ -5,16 +5,16 @@ export interface JournalState {
     notes: JournalStateNote[];
 }
 
-interface JournalStateNote {
+export interface JournalStateNote {
     id: string;
-    date: number;
+    date: string;
     title: string;
     body: string;
 }
 
 
 export const journalInitialState: JournalState = {
-    isSaving: true,
+    isSaving: false,
     messageSaved: '',
     notes: [],
 } 

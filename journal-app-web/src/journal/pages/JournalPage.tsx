@@ -1,19 +1,34 @@
+import { useAppDispatch, useAppSelector } from '../../hooks';
+import { startNewNote } from '../../store';
 import { FloatingButton } from '../components';
 import { JournalLayout } from '../layouts';
-import { NothingSelectedView, NoteView } from '../views';
+import { NoteView, NothingSelectedView } from '../views';
+import { useGraphql } from '../hooks';
+
 
 export const JournalPage = () => {
 
-    return (
-        <JournalLayout> 
-            {/* NothingSelectedView */}
-            <NothingSelectedView />
-            
-            {/* NoteView */}
-            {/* <NoteView /> */}
+    const dispatch = useAppDispatch();
+    const { isSaving, active: note, messageSaved } = useAppSelector(state => state.journal);
 
-            {/* Floating button */}
-            <FloatingButton />
+    const { addNote, updateNote, findAllByUserId, isLoading, hasError, errorMessage } = useGraphql();
+    const onClickNewNote = () => {
+        dispatch(startNewNote(addNote));
+    }
+
+    return (
+        <JournalLayout isLoading={isLoading} hasError={hasError} error={errorMessage}> 
+            <>
+                {/* NoteView */}
+                {/* NothingSelectedView */}
+                { !!note ? 
+                    <NoteView note={note} updateNote={updateNote} messageSaved={messageSaved} isSaving={isSaving}/> : 
+                    <NothingSelectedView />
+                }
+
+                {/* Floating button */}
+                <FloatingButton onClickNewNote={onClickNewNote} isDisabled={isSaving}/>
+            </>
         </JournalLayout>
     )
 }

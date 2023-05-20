@@ -1,9 +1,10 @@
 import { Box, Toolbar } from '@mui/material';
 import { NavBar, SideBar } from '../components';
+import { ErrorView, LoadingView } from '../views';
 
 const drawerWidth = 240;
 
-export const JournalLayout = ({ children }: { children: JSX.Element | JSX.Element[] }) => {
+export const JournalLayout = ({ children, isLoading = false, hasError = false, error = '' }: { children: JSX.Element | JSX.Element[], isLoading?: boolean, hasError?: boolean, error?: string }) => {
 
     return (
         <Box sx= {{ display: 'flex' }} className='animate__animated animate__fadeIn animate__faster'>
@@ -22,7 +23,9 @@ export const JournalLayout = ({ children }: { children: JSX.Element | JSX.Elemen
                 }}>
                 {/* Toolbar */}
                 <Toolbar />
-                {children}
+                { !isLoading && !hasError && children}
+                { isLoading && LoadingView()}
+                { hasError && ErrorView({ error }) }
             </Box>
         </Box>
     );

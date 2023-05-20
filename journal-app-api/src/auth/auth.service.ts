@@ -52,4 +52,10 @@ export class AuthService {
     if (!user) throw new NotFoundException(`User with email ${email} not found`);
     return user;
   }
+
+  findOneByIdOrError = async (id: string) : Promise<UserEntity> => {
+    const user = await this.userRepository.findOneBy({ id });
+    if (!user) throw new NotFoundException(`User with id ${id} not found`);
+    return user;
+  }
 }

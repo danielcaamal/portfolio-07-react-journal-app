@@ -14,14 +14,16 @@ const formValidations = {
     password: [(value:string) => value.length > 7, 'Password must be at least 8 characters'],
 }
 
+const formInitialValues = {
+    email: '',
+    password: ''
+}
+
 export const LoginPage = () => {
     const [formSubmitted, setFormSubmitted] = useState(false)
     const { status, errorMessage } = useAppSelector(state => state.auth);
     const dispatch = useAppDispatch();
-    const { formState: { email, password }, formValidation: { emailValid, passwordValid }, onInputChange } = useForm({
-        email: '',
-        password: ''
-    }, formValidations);
+    const { formState: { email, password }, formValidation: { emailValid, passwordValid }, onInputChange } = useForm(formInitialValues, formValidations);
 
 
     const isAuthenticated = useMemo(() => status === AuthStatus.AUTHENTICATED,[status]);

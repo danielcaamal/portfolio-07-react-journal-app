@@ -12,5 +12,8 @@ import { UserEntity } from './entities/user.entity';
       UserEntity
     ]),
   ],
+  exports: [
+    AuthService,
+  ]
 })
 export class AuthModule {}

@@ -2,7 +2,10 @@ import { AddOutlined } from "@mui/icons-material";
 import { IconButton } from "@mui/material";
 
 
-export const FloatingButton = () => {
+export const FloatingButton = ({ onClickNewNote, isDisabled = false }: {
+    onClickNewNote: () => void,
+    isDisabled?: boolean
+}) => {
     return (
         <IconButton
             size= 'large'
@@ -17,6 +20,8 @@ export const FloatingButton = () => {
                 bottom: 50,
                 right: 50,
             }}
+            onClick={onClickNewNote}
+            disabled={isDisabled}
         >
             <AddOutlined/>
         </IconButton>

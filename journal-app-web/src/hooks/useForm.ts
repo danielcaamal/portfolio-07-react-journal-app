@@ -25,6 +25,10 @@ export const useForm = <T>(initialState:T, formValidations:any) => {
         return true;
     }, [formValidation]);
 
+    useEffect(() => {
+        setFormState(initialState);
+    }, [initialState]);
+
     const onInputChange = ({ target }: any) => {
         setFormState({
             ...formState,

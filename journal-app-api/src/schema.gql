@@ -1,0 +1,59 @@
+# ------------------------------------------------------
+# THIS FILE WAS AUTOMATICALLY GENERATED (DO NOT MODIFY)
+# ------------------------------------------------------
+
+type NoteEntity {
+  id: ID!
+  title: String!
+  body: String!
+  date: DateTime!
+  user: UserEntity!
+}
+
+"""
+A date-time string at UTC, such as 2019-12-03T09:54:33Z, compliant with the date-time format.
+"""
+scalar DateTime
+
+type UserEntity {
+  id: ID!
+  email: String!
+  username: String!
+  displayName: String!
+  photoURL: String
+}
+
+type Query {
+  findAllNotes: [NoteEntity!]!
+  findAllNotesByUserId(id: String!): [NoteEntity!]!
+  findOneNoteById(id: String!): NoteEntity!
+}
+
+type Mutation {
+  createNote(createNoteInput: CreateNoteInput!): NoteEntity!
+  updateNote(updateNoteInput: UpdateNoteInput!): NoteEntity!
+  removeNote(id: String!): NoteEntity!
+}
+
+input CreateNoteInput {
+  """title"""
+  title: String!
+
+  """body"""
+  body: String!
+
+  """userId"""
+  userId: ID!
+}
+
+input UpdateNoteInput {
+  """title"""
+  title: String
+
+  """body"""
+  body: String
+
+  """userId"""
+  userId: ID
+  id: ID!
+}
