@@ -1,8 +1,8 @@
-import { SaveOutlined, UploadOutlined } from "@mui/icons-material";
+import { DeleteOutlined, SaveOutlined, UploadOutlined } from "@mui/icons-material";
 import { Button, Grid, IconButton, Input, TextField, Typography } from "@mui/material";
 import { ImageGallery } from "../components/ImageGallery";
 import { useAppDispatch, useForm } from "../../hooks";
-import { JournalStateNote, setActiveNote, startSavingNote, startUploadingFiles } from "../../store";
+import { JournalStateNote, setActiveNote, startRemovingNote, startSavingNote, startUploadingFiles } from "../../store";
 import { getLocaleDate } from "../../../utils";
 import { ChangeEvent, useEffect, useRef } from "react";
 import Swal from "sweetalert2";
@@ -13,11 +13,13 @@ const formValidations = {
     body: [(value:string) => value.length > 0, "Body is required"],
 }
 
-export const NoteView = ({ note, messageSaved, updateNote, isSaving } : { 
+export const NoteView = ({ note, messageSaved, updateNote, removeNote, removeFileNote, isSaving } : { 
         note:JournalStateNote,
         messageSaved: string,
         isSaving: boolean,
         updateNote: any,
+        removeNote: any,
+        removeFileNote: any
     }) => {
     
     const dispatch = useAppDispatch();
@@ -43,6 +45,10 @@ export const NoteView = ({ note, messageSaved, updateNote, isSaving } : {
 
     const onSaveNote = () => {
         dispatch(startSavingNote(updateNote));
+    }
+
+    const onDeleteNote = () => {
+        dispatch(startRemovingNote(removeNote, note.id));
     }
 
     const onFileInputChange = (event: ChangeEvent<HTMLInputElement>) => {
@@ -88,13 +94,18 @@ export const NoteView = ({ note, messageSaved, updateNote, isSaving } : {
                     ref={fileInputRef}
                     accept="image/png, image/gif, image/jpeg"
                     />
-                <IconButton
+                <Button 
                     color="primary"
-                    disabled={ isSaving || !isFormValid }
+                    sx={{ p: 2 }}
                     onClick={() => fileInputRef.current?.click()}
+                    disabled={ isSaving || !isFormValid }
                     >
-                    <UploadOutlined />
-                </IconButton>
+                    <UploadOutlined sx={{
+                        fontSize: 30,
+                        mr: 1,
+                    }}/>
+                    Save
+                </Button>
                 <Button 
                     color="primary"
                     sx={{ p: 2 }}
@@ -106,6 +117,18 @@ export const NoteView = ({ note, messageSaved, updateNote, isSaving } : {
                         mr: 1,
                     }}/>
                     Save
+                </Button>
+                <Button 
+                    color="primary"
+                    sx={{ p: 2 }}
+                    onClick={onDeleteNote}
+                    disabled={ isSaving }
+                    >
+                    <DeleteOutlined sx={{
+                        fontSize: 30,
+                        mr: 1,
+                    }}/>
+                    Delete
                 </Button>
             </Grid>
             <Grid container>
@@ -140,7 +163,7 @@ export const NoteView = ({ note, messageSaved, updateNote, isSaving } : {
                 </TextField>
             </Grid>
             {/* Image gallery */}
-            <ImageGallery itemData={note.files}/>
+            <ImageGallery itemData={note.files} removeFileNote={removeFileNote}/>
         </Grid>
     );
 }

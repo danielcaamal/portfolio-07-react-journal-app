@@ -2,14 +2,12 @@ import { Box, Divider, Drawer, List, Toolbar, Typography } from '@mui/material';
 import { useAppDispatch, useAppSelector } from '../../hooks';
 import { SideBarItem } from './SideBarItem';
 import { JournalStateNote, setActiveNote, startGetDetailNote } from '../../store';
-import { useGraphql } from '../hooks';
 
-export const SideBar = ({ drawerWidth=240 } : { drawerWidth?: number }) => {
+export const SideBar = ({ drawerWidth=240, findOneById } : { drawerWidth?: number, findOneById: any }) => {
 
     const { displayName } = useAppSelector(state => state.auth);
     const { notes } = useAppSelector(state => state.journal);
     const dispatch = useAppDispatch();
-    const { findOneById } = useGraphql();
 
     const onFocusItem = (note: JournalStateNote) => {
         dispatch(startGetDetailNote(findOneById, note.id))

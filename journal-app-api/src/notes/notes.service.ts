@@ -51,7 +51,8 @@ export class NotesService {
   remove = async (id: string) : Promise<NoteEntity> => {
     const noteToRemove = await this.noteRepository.findOneBy({ id });
     if (!noteToRemove) throw new NotFoundException(`Note with id ${id} not found`); 
-    return this.noteRepository.remove(noteToRemove);
+    await this.noteRepository.remove(noteToRemove);
+    return { ...noteToRemove, id };
   }
 
   createFiles = async (files: NoteFileInput[], note: NoteEntity) : Promise<NotesFileEntity[]> => {

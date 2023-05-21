@@ -4,7 +4,7 @@ import { ErrorView, LoadingView } from '../views';
 
 const drawerWidth = 240;
 
-export const JournalLayout = ({ children, isLoading = false, hasError = false, error = '' }: { children: JSX.Element | JSX.Element[], isLoading?: boolean, hasError?: boolean, error?: string }) => {
+export const JournalLayout = ({ children, isLoading = false, hasError = false, error = '', findOneById }: { children: JSX.Element | JSX.Element[], isLoading?: boolean, hasError?: boolean, error?: string, findOneById:any }) => {
 
     return (
         <Box sx= {{ display: 'flex' }} className='animate__animated animate__fadeIn animate__faster'>
@@ -13,7 +13,7 @@ export const JournalLayout = ({ children, isLoading = false, hasError = false, e
             <NavBar drawerWidth={drawerWidth}/>
 
             {/* Sidebar */}
-            <SideBar drawerWidth={drawerWidth} />
+            <SideBar drawerWidth={drawerWidth} findOneById={findOneById}/>
 
             <Box 
                 component='main'

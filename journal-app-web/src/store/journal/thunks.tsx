@@ -1,5 +1,4 @@
-import { NotesFileEntity } from "../../gql/graphql";
-import { addNewEmptyNote, creatingNewNote, setActiveNote, setNotes, setSaving, updateNote as onUpdateNote, deleteFile } from "./journalSlice";
+import { addNewEmptyNote, creatingNewNote, setActiveNote, setNotes, setSaving, updateNote as onUpdateNote, deleteFile, deleteNote, updateNoteFiles } from "./journalSlice";
 
 export const startNewNote = (addNote: any) => {
     return async (dispatch:any, getState:any) => {
@@ -107,7 +106,20 @@ export const onRemoveNoteFile = (removeFileNote: any, id: string) => {
                 removeFileNoteId: id
             }
         });
-
         dispatch(deleteFile(data.removeFileNote));
+        dispatch(updateNoteFiles());
+    }
+}
+
+export const startRemovingNote = (removeNote: any, id: string) => {
+    return async (dispatch:any, getState:any) => {
+        dispatch(setSaving());
+        const { data } = await removeNote({
+            variables: {
+                removeNoteId: id
+            }
+        });
+        dispatch(deleteNote(data.removeNote))
+        dispatch(setActiveNote(null));
     }
 }

@@ -2,7 +2,7 @@ import { Edit, TurnedInNot } from '@mui/icons-material';
 import { Grid, ListItem, ListItemButton, ListItemIcon, ListItemText, Tooltip } from '@mui/material';
 import { getLocaleDate } from '../../../utils';
 import { JournalStateNote } from '../../store';
-import { useMemo } from 'react';
+import { useEffect, useMemo } from 'react';
 
 
 export const SideBarItem = ({ note, onClick } : 

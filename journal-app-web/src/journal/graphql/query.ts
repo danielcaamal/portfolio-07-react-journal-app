@@ -60,6 +60,14 @@ export const UPDATE_NOTE = gql`
     }
 `;
 
+export const DELETE_NOTE = gql`
+    mutation RemoveNote($removeNoteId: String!) {
+        removeNote(id: $removeNoteId) {
+            id
+        }
+    }
+`;
+
 export const REMOVE_FILE_NOTE = gql`
     mutation RemoveFileNote($removeFileNoteId: String!) {
         removeFileNote(id: $removeFileNoteId) {

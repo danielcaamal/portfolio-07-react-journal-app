@@ -1,14 +1,12 @@
 import { Button, ImageList, ImageListItem, Divider, Box } from '@mui/material';
 import { NotesFileEntity } from "../../gql/graphql";
-import { useGraphql } from '../hooks';
 import { useAppDispatch } from '../../hooks';
 import { onRemoveNoteFile } from '../../store';
 
 
-export const ImageGallery = ({ itemData } : { itemData: NotesFileEntity[] }) => {
+export const ImageGallery = ({ itemData, removeFileNote } : { itemData: NotesFileEntity[], removeFileNote: any }) => {
 
     const dispatch = useAppDispatch();
-    const { removeFileNote } = useGraphql();
 
     const onRemoveFileNote = () => {
         dispatch(onRemoveNoteFile(removeFileNote, itemData[0].id))

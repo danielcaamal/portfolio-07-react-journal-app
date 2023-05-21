@@ -11,18 +11,25 @@ export const JournalPage = () => {
     const dispatch = useAppDispatch();
     const { isSaving, active: note, messageSaved } = useAppSelector(state => state.journal);
 
-    const { addNote, updateNote, findAllByUserId, isLoading, hasError, errorMessage } = useGraphql();
+    const { findOneById, addNote, updateNote, removeNote, removeFileNote, isLoading, hasError, errorMessage } = useGraphql();
     const onClickNewNote = () => {
         dispatch(startNewNote(addNote));
     }
 
     return (
-        <JournalLayout isLoading={isLoading} hasError={hasError} error={errorMessage}> 
+        <JournalLayout isLoading={isLoading} hasError={hasError} error={errorMessage} findOneById={findOneById}> 
             <>
                 {/* NoteView */}
                 {/* NothingSelectedView */}
                 { !!note ? 
-                    <NoteView note={note} updateNote={updateNote} messageSaved={messageSaved} isSaving={isSaving}/> : 
+                    <NoteView 
+                        note={note} 
+                        updateNote={updateNote} 
+                        removeNote={removeNote}
+                        removeFileNote={removeFileNote} 
+                        messageSaved={messageSaved} 
+                        isSaving={isSaving}
+                        /> : 
                     <NothingSelectedView />
                 }
 

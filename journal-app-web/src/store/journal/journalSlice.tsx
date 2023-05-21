@@ -43,16 +43,35 @@ export const journalSlice = createSlice({
         },
         deleteFile: (state, action) => {
             const { id } = action.payload;
-            if (!state?.active?.files) return;
+            if (!state?.active) return;
             state.active.files = state?.active?.files.filter((file) => {
                 if (file.id !== id) return file;
+            });
+            state.notes = state.notes.map((note) => {
+                if (note.id === state.active?.id) {
+                    note.files = state.active.files;
+                }
+                return note;
+            });
+            state.isSaving = false;
+        },
+        updateNoteFiles: (state) => {
+            state.notes = state.notes.map((note) => {
+                if (note.id === state.active?.id) {
+                    note.files = state.active.files;
+                }
+                return note;
             });
             state.isSaving = false;
         },
         deleteNote: (state, action) => {
-            
+            const { id } = action.payload;
+            state.notes = state.notes.filter((note) => {
+                if (note.id !== id) return note; 
+            });
+            state.isSaving = false;
         },
     }
 });
 
-export const { addNewEmptyNote, setActiveNote, creatingNewNote, setNotes, setSaving, updateNote, deleteNote, deleteFile } = journalSlice.actions;
+export const { addNewEmptyNote, setActiveNote, creatingNewNote, setNotes, setSaving, updateNote, deleteNote, deleteFile, updateNoteFiles } = journalSlice.actions;

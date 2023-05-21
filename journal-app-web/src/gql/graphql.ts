@@ -149,6 +149,13 @@ export type UpdateNoteMutationVariables = Exact<{
 
 export type UpdateNoteMutation = { __typename?: 'Mutation', updateNote: { __typename?: 'NoteEntity', id: string, title: string, body: string, date: any, files?: Array<{ __typename?: 'NotesFileEntity', id: string, base64: string, title: string }> | null } };
 
+export type RemoveNoteMutationVariables = Exact<{
+  removeNoteId: Scalars['String'];
+}>;
+
+
+export type RemoveNoteMutation = { __typename?: 'Mutation', removeNote: { __typename?: 'NoteEntity', id: string } };
+
 export type RemoveFileNoteMutationVariables = Exact<{
   removeFileNoteId: Scalars['String'];
 }>;
@@ -320,6 +327,39 @@ export function useUpdateNoteMutation(baseOptions?: Apollo.MutationHookOptions<U
 export type UpdateNoteMutationHookResult = ReturnType<typeof useUpdateNoteMutation>;
 export type UpdateNoteMutationResult = Apollo.MutationResult<UpdateNoteMutation>;
 export type UpdateNoteMutationOptions = Apollo.BaseMutationOptions<UpdateNoteMutation, UpdateNoteMutationVariables>;
+export const RemoveNoteDocument = gql`
+    mutation RemoveNote($removeNoteId: String!) {
+  removeNote(id: $removeNoteId) {
+    id
+  }
+}
+    `;
+export type RemoveNoteMutationFn = Apollo.MutationFunction<RemoveNoteMutation, RemoveNoteMutationVariables>;
+
+/**
+ * __useRemoveNoteMutation__
+ *
+ * To run a mutation, you first call `useRemoveNoteMutation` within a React component and pass it any options that fit your needs.
+ * When your component renders, `useRemoveNoteMutation` returns a tuple that includes:
+ * - A mutate function that you can call at any time to execute the mutation
+ * - An object with fields that represent the current status of the mutation's execution
+ *
+ * @param baseOptions options that will be passed into the mutation, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options-2;
+ *
+ * @example
+ * const [removeNoteMutation, { data, loading, error }] = useRemoveNoteMutation({
+ *   variables: {
+ *      removeNoteId: // value for 'removeNoteId'
+ *   },
+ * });
+ */
+export function useRemoveNoteMutation(baseOptions?: Apollo.MutationHookOptions<RemoveNoteMutation, RemoveNoteMutationVariables>) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useMutation<RemoveNoteMutation, RemoveNoteMutationVariables>(RemoveNoteDocument, options);
+      }
+export type RemoveNoteMutationHookResult = ReturnType<typeof useRemoveNoteMutation>;
+export type RemoveNoteMutationResult = Apollo.MutationResult<RemoveNoteMutation>;
+export type RemoveNoteMutationOptions = Apollo.BaseMutationOptions<RemoveNoteMutation, RemoveNoteMutationVariables>;
 export const RemoveFileNoteDocument = gql`
     mutation RemoveFileNote($removeFileNoteId: String!) {
   removeFileNote(id: $removeFileNoteId) {

@@ -10,7 +10,6 @@ export const checkingAuthentication = ({ email, password} : { email: string, pas
 
 export const startGoogleSignInPopUp = () => {
     return async (dispatch: any) => {
-        console.log('Google Sign In (Firebase)');
         dispatch(checking());
         const result = await signInWithGoogle();
         if (!result.ok) dispatch(logout({ errorMessage: result.errorMessage }));
@@ -21,7 +20,6 @@ export const startGoogleSignInPopUp = () => {
 // Register with google firebase
 export const startFirebaseRegister = ({ email, password } : { email: string, password: string }) => {
     return async (dispatch: any) => {
-        console.log('Creating User (Firebase)');
         dispatch(checking());
         const result = await registerUserWithEmailPassword({ email, password });
         if (!result.ok) return dispatch(logout({ errorMessage: result.errorMessage }));
@@ -32,7 +30,6 @@ export const startFirebaseRegister = ({ email, password } : { email: string, pas
 // Login with google firebase
 export const startFirebaseLogin = ({ email, password } : { email: string, password: string }) => {
     return async (dispatch: any) => {
-        console.log('Login User (Firebase)');
         dispatch(checking());
         const result = await loginWithEmailPassword({ email, password });
         if (!result.ok) return dispatch(logout({ errorMessage: result.errorMessage }));
@@ -43,7 +40,6 @@ export const startFirebaseLogin = ({ email, password } : { email: string, passwo
 // logout with google firebase
 export const startFirebaseLogout = () => {
     return async (dispatch: any) => {
-        console.log('Logout User (Firebase)');
         await logoutFirebase();
         dispatch(logout({}));
     }
@@ -53,7 +49,6 @@ export const startFirebaseLogout = () => {
 // Register with API
 export const startApiRegister = (registerRequest: IRegisterRequest) => {
     return async (dispatch: any) => {
-        console.log('Creating User (API)');
         dispatch(checking());
         const result = await apiRegisterProvider(registerRequest);
         if (result.message) return dispatch(logout({ errorMessage: result.message }));
@@ -66,7 +61,6 @@ export const startApiRegister = (registerRequest: IRegisterRequest) => {
 // Login with API
 export const startApiLogin = (loginRequest: ILoginRequest) => {
     return async (dispatch: any) => {
-        console.log('Login User (API)');
         dispatch(checking());
         const result = await apiLoginProvider(loginRequest);
         if (result.message) return dispatch(logout({ errorMessage: result.message }));
@@ -79,7 +73,6 @@ export const startApiLogin = (loginRequest: ILoginRequest) => {
 
 export const startApiLogout = () => {
     return async (dispatch: any) => {
-        console.log('Logout User (API)');
         localStorage.removeItem('user');
         dispatch(logout({}));
     }

@@ -1,5 +1,5 @@
 // Nest imports
-import { ValidationPipe } from '@nestjs/common';
+import { Logger, ValidationPipe } from '@nestjs/common';
 import { NestFactory } from '@nestjs/core';
 import { ConfigService } from '@nestjs/config';
 
@@ -21,7 +21,8 @@ async function bootstrap() {
       forbidNonWhitelisted: false,
     }),
   );
-  console.log(`Listening on localhost:${port}/${prefix}`);
+  const logger = new Logger('App');
+  logger.log(`Server running on port: ${port}`);
   await app.listen(port);
 }
 bootstrap();
