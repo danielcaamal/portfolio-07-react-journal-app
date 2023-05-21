@@ -2,12 +2,25 @@
 # THIS FILE WAS AUTOMATICALLY GENERATED (DO NOT MODIFY)
 # ------------------------------------------------------
 
+type NotesFileEntity {
+  """File id"""
+  id: ID!
+
+  """File title"""
+  title: String!
+
+  """File base64"""
+  base64: String!
+  note: NoteEntity!
+}
+
 type NoteEntity {
   id: ID!
   title: String!
   body: String!
   date: DateTime!
   user: UserEntity!
+  files: [NotesFileEntity!]
 }
 
 """
@@ -33,6 +46,7 @@ type Mutation {
   createNote(createNoteInput: CreateNoteInput!): NoteEntity!
   updateNote(updateNoteInput: UpdateNoteInput!): NoteEntity!
   removeNote(id: String!): NoteEntity!
+  removeFileNote(id: String!): NotesFileEntity!
 }
 
 input CreateNoteInput {
@@ -42,8 +56,19 @@ input CreateNoteInput {
   """body"""
   body: String!
 
+  """files"""
+  files: [NoteFileInput!]
+
   """userId"""
   userId: ID!
+}
+
+input NoteFileInput {
+  """title"""
+  title: String!
+
+  """base64"""
+  base64: String!
 }
 
 input UpdateNoteInput {
@@ -52,6 +77,9 @@ input UpdateNoteInput {
 
   """body"""
   body: String
+
+  """files"""
+  files: [NoteFileInput!]
 
   """userId"""
   userId: ID

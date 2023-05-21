@@ -1,3 +1,5 @@
+import { NotesFileEntity } from "../../gql/graphql";
+
 export interface JournalState {
     isSaving: boolean;
     messageSaved: string;
@@ -10,6 +12,7 @@ export interface JournalStateNote {
     date: string;
     title: string;
     body: string;
+    files: NotesFileEntity[];
 }
 
 

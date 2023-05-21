@@ -13,7 +13,8 @@ export const journalSlice = createSlice({
                 id: action.payload.id,
                 title: action.payload.title,
                 body: action.payload.body,
-                date: action.payload.date
+                date: action.payload.date,
+                files: []
             };
             state.notes = [newNote, ...state.notes];
             state.isSaving = false;
@@ -32,16 +33,21 @@ export const journalSlice = createSlice({
             state.messageSaved = '';
         },
         updateNote: (state, action) => {
-            const { id, title, body } = action.payload;
-            state.notes = state.notes.map(note => {
-                if (note.id === id) {
-                    note.title = title;
-                    note.body = body;
-                }
-                return note;
+            const { id, title } = action.payload;
+            state.notes = state.notes.filter((note) => {
+                if (note.id !== id) return note; 
             });
+            state.notes = [action.payload, ...state.notes];
             state.isSaving = false;
             state.messageSaved = `Saved ${title} successfully!`
+        },
+        deleteFile: (state, action) => {
+            const { id } = action.payload;
+            if (!state?.active?.files) return;
+            state.active.files = state?.active?.files.filter((file) => {
+                if (file.id !== id) return file;
+            });
+            state.isSaving = false;
         },
         deleteNote: (state, action) => {
             
@@ -49,4 +55,4 @@ export const journalSlice = createSlice({
     }
 });
 
-export const { addNewEmptyNote, setActiveNote, creatingNewNote, setNotes, setSaving, updateNote, deleteNote } = journalSlice.actions;
+export const { addNewEmptyNote, setActiveNote, creatingNewNote, setNotes, setSaving, updateNote, deleteNote, deleteFile } = journalSlice.actions;

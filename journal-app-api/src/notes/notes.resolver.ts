@@ -5,6 +5,7 @@ import { NotesService } from './notes.service';
 import { CreateNoteInput } from './dto/create-note.input';
 import { UpdateNoteInput } from './dto/update-note.input';
 import { NoteEntity } from './entities/note.entity';
+import { NotesFileEntity } from './entities/notes-file.entity';
 
 @Resolver(() => NoteEntity)
 export class NotesResolver {
@@ -38,5 +39,10 @@ export class NotesResolver {
   @Mutation(() => NoteEntity)
   removeNote(@Args('id', { type: () => String }, ParseUUIDPipe) id: string) {
     return this.notesService.remove(id);
+  }
+
+  @Mutation(() => NotesFileEntity)
+  removeFileNote(@Args('id', { type: () => String }, ParseUUIDPipe) id: string) {
+    return this.notesService.deleteFile(id);
   }
 }

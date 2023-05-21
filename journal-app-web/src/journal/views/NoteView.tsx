@@ -1,10 +1,10 @@
-import { SaveOutlined } from "@mui/icons-material";
-import { Button, Grid, TextField, Typography } from "@mui/material";
+import { SaveOutlined, UploadOutlined } from "@mui/icons-material";
+import { Button, Grid, IconButton, Input, TextField, Typography } from "@mui/material";
 import { ImageGallery } from "../components/ImageGallery";
 import { useAppDispatch, useForm } from "../../hooks";
-import { JournalStateNote, setActiveNote, startSavingNote } from "../../store";
+import { JournalStateNote, setActiveNote, startSavingNote, startUploadingFiles } from "../../store";
 import { getLocaleDate } from "../../../utils";
-import { useEffect } from "react";
+import { ChangeEvent, useEffect, useRef } from "react";
 import Swal from "sweetalert2";
 import 'sweetalert2/dist/sweetalert2.css';
 
@@ -39,8 +39,23 @@ export const NoteView = ({ note, messageSaved, updateNote, isSaving } : {
         }
     }, [messageSaved]);
 
+    const fileInputRef = useRef<HTMLInputElement>(null);
+
     const onSaveNote = () => {
         dispatch(startSavingNote(updateNote));
+    }
+
+    const onFileInputChange = (event: ChangeEvent<HTMLInputElement>) => {
+        const files = event.target.files;
+        if (!files) return;
+        if (files.length === 0) return;
+        // Only jpg, png, jpeg
+        const validTypes = ["image/png", "image/jpg", "image/jpeg"];
+        const validFiles = Array.from(files).filter(file => {
+            return validTypes.includes(file.type);
+        })
+        if (validFiles.length === 0) return;
+        dispatch(startUploadingFiles(validFiles, updateNote))
     }
 
     return (
@@ -64,6 +79,22 @@ export const NoteView = ({ note, messageSaved, updateNote, isSaving } : {
 
             </Grid>
             <Grid item>
+                <input
+                    title="Upload image"
+                    type="file"
+                    multiple
+                    onChange={onFileInputChange}
+                    style={{ display: "none" }}
+                    ref={fileInputRef}
+                    accept="image/png, image/gif, image/jpeg"
+                    />
+                <IconButton
+                    color="primary"
+                    disabled={ isSaving || !isFormValid }
+                    onClick={() => fileInputRef.current?.click()}
+                    >
+                    <UploadOutlined />
+                </IconButton>
                 <Button 
                     color="primary"
                     sx={{ p: 2 }}
@@ -109,7 +140,7 @@ export const NoteView = ({ note, messageSaved, updateNote, isSaving } : {
                 </TextField>
             </Grid>
             {/* Image gallery */}
-            <ImageGallery />
+            <ImageGallery itemData={note.files}/>
         </Grid>
     );
 }

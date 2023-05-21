@@ -7,6 +7,11 @@ export const ADD_NOTE = gql`
             title
             body
             date
+            files {
+                id
+                base64
+                title
+            }
         }
     }
 `;
@@ -23,6 +28,22 @@ export const FIND_NOTES_BY_USER = gql`
     }
 `;
 
+export const FIND_NOTE_BY_ID= gql`
+    query FindOneNoteById($findOneNoteByIdId: String!) {
+        findOneNoteById(id: $findOneNoteByIdId) {
+            id
+            title
+            body
+            date
+            files {
+                id
+                base64
+                title
+            }
+        }
+    }
+`;
+
 export const UPDATE_NOTE = gql`
     mutation UpdateNote($updateNoteInput: UpdateNoteInput!) {
         updateNote(updateNoteInput: $updateNoteInput) {
@@ -30,7 +51,19 @@ export const UPDATE_NOTE = gql`
             title
             body
             date
+            files {
+                id
+                base64
+                title
+            }
         }
     }
 `;
 
+export const REMOVE_FILE_NOTE = gql`
+    mutation RemoveFileNote($removeFileNoteId: String!) {
+        removeFileNote(id: $removeFileNoteId) {
+            id
+        }
+    }
+`;
